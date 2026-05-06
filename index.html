@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antenna Design Portfolio</title>
+  <meta name="description" content="A personal collection of amateur antenna designs — Yagi, dipole, loop, and more. Built, tested, and documented by a radio hobbyist." />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e12;
+      --surface: #111720;
+      --border: #1e2d3d;
+      --accent: #00e5ff;
+      --accent2: #ff6b35;
+      --text: #c9d6e3;
+      --muted: #526070;
+      --mono: 'Share Tech Mono', monospace;
+      --body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      height: 60vh;
+      background: radial-gradient(ellipse, rgba(0,229,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(10,14,18,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      max-width: 900px;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #e8f0f8;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.4s;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.6s;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.75rem 1.75rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.8s;
+    }
+    .hero-cta:hover { background: #33ecff; transform: translateY(-2px); }
+
+    /* Signal SVG decoration */
+    .signal-art {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.12;
+      width: min(420px, 45vw);
+      pointer-events: none;
+    }
+
+    /* ── SECTION ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: #e8f0f8;
+      margin-bottom: 3rem;
+    }
+
+    /* ── DESIGNS GRID ── */
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-icon {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: rgba(0,229,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .card-icon svg { width: 80px; height: 80px; opacity: 0.7; }
+
+    .card-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .card h3 {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: #e8f0f8;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .card-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .spec-badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      background: rgba(0,229,255,0.06);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      max-width: 600px;
+    }
+
+    .contact-box p { color: var(--muted); margin-bottom: 1.5rem; }
+
+    .contact-link {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,229,255,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .signal-art { display: none; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .hero { padding: 7rem 1.25rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">// ANTENNA LAB</a>
+  <ul class="nav-links">
+    <li><a href="#designs">Designs</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-label">▸ Personal RF Engineering Portfolio</p>
+  <h1>Antenna<br><span>Designs</span><br>&amp; Experiments</h1>
+  <p>A growing collection of homemade antenna designs — built, tested, and documented. From simple dipoles to multi-element Yagis, everything is open to explore.</p>
+  <a class="hero-cta" href="#designs">▸ View Designs</a>
+
+  <!-- Signal wave art -->
+  <svg class="signal-art" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Antenna mast -->
+    <line x1="200" y1="380" x2="200" y2="50" stroke="#00e5ff" stroke-width="2"/>
+    <!-- Dipole elements -->
+    <line x1="200" y1="100" x2="80" y2="140" stroke="#00e5ff" stroke-width="2"/>
+    <line x1="200" y1="100" x2="320" y2="140" stroke="#00e5ff" stroke-width="2"/>
+    <!-- Signal arcs -->
+    <path d="M 160 60 Q 200 20 240 60" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+    <path d="M 130 40 Q 200 -10 270 40" stroke="#00e5ff" stroke-width="1" fill="none" opacity="0.6"/>
+    <path d="M 100 20 Q 200 -40 300 20" stroke="#00e5ff" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <!-- Guy wires -->
+    <line x1="200" y1="200" x2="60" y2="370" stroke="#00e5ff" stroke-width="0.5" opacity="0.4" stroke-dasharray="4,4"/>
+    <line x1="200" y1="200" x2="340" y2="370" stroke="#00e5ff" stroke-width="0.5" opacity="0.4" stroke-dasharray="4,4"/>
+    <!-- Ground plane -->
+    <line x1="60" y1="380" x2="340" y2="380" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="80" y1="375" x2="80" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="120" y1="375" x2="120" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="160" y1="375" x2="160" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="240" y1="375" x2="240" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="280" y1="375" x2="280" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <line x1="320" y1="375" x2="320" y2="385" stroke="#00e5ff" stroke-width="1" opacity="0.5"/>
+    <!-- Yagi directors -->
+    <line x1="200" y1="170" x2="100" y2="190" stroke="#ff6b35" stroke-width="2"/>
+    <line x1="200" y1="170" x2="300" y2="190" stroke="#ff6b35" stroke-width="2"/>
+    <line x1="200" y1="220" x2="110" y2="235" stroke="#ff6b35" stroke-width="1.5"/>
+    <line x1="200" y1="220" x2="290" y2="235" stroke="#ff6b35" stroke-width="1.5"/>
+    <line x1="200" y1="260" x2="115" y2="272" stroke="#ff6b35" stroke-width="1"/>
+    <line x1="200" y1="260" x2="285" y2="272" stroke="#ff6b35" stroke-width="1"/>
+  </svg>
+</div>
+
+<!-- DESIGNS -->
+<section id="designs">
+  <p class="section-label">▸ 01 / Designs</p>
+  <h2 class="section-title">Built &amp; Documented</h2>
+
+  <div class="designs-grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="70" x2="40" y2="10" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="25" x2="10" y2="40" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="25" x2="70" y2="40" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="10" x2="10" y2="10" stroke="#00e5ff" stroke-width="1" opacity="0.4" stroke-dasharray="3,3"/>
+          <line x1="40" y1="10" x2="70" y2="10" stroke="#00e5ff" stroke-width="1" opacity="0.4" stroke-dasharray="3,3"/>
+        </svg>
+      </div>
+      <p class="card-tag">Dipole</p>
+      <h3>Half-Wave Dipole — 40m Band</h3>
+      <p>Classic 40m HF dipole, fed with RG-58 coax and a 1:1 balun. Simple, effective, and a great starting point for HF work.</p>
+      <div class="card-specs">
+        <span class="spec-badge">7.150 MHz</span>
+        <span class="spec-badge">~20m span</span>
+        <span class="spec-badge">SWR &lt; 1.5</span>
+        <span class="spec-badge">RG-58</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="75" x2="40" y2="15" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="28" x2="15" y2="35" stroke="#ff6b35" stroke-width="2"/>
+          <line x1="40" y1="28" x2="65" y2="35" stroke="#ff6b35" stroke-width="2"/>
+          <line x1="40" y1="40" x2="18" y2="46" stroke="#ff6b35" stroke-width="1.5"/>
+          <line x1="40" y1="40" x2="62" y2="46" stroke="#ff6b35" stroke-width="1.5"/>
+          <line x1="40" y1="52" x2="20" y2="57" stroke="#ff6b35" stroke-width="1.2"/>
+          <line x1="40" y1="52" x2="60" y2="57" stroke="#ff6b35" stroke-width="1.2"/>
+          <line x1="40" y1="20" x2="12" y2="28" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="20" x2="68" y2="28" stroke="#00e5ff" stroke-width="2"/>
+        </svg>
+      </div>
+      <p class="card-tag">Yagi-Uda</p>
+      <h3>5-Element Yagi — 2m Band</h3>
+      <p>Directional VHF Yagi for 144 MHz. Built from aluminum tubing with a boom length of 1.2m. Used for portable SOTA activations.</p>
+      <div class="card-specs">
+        <span class="spec-badge">144 MHz</span>
+        <span class="spec-badge">~10 dBd gain</span>
+        <span class="spec-badge">F/B 20 dB</span>
+        <span class="spec-badge">Portable</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="26" stroke="#00e5ff" stroke-width="2" fill="none"/>
+          <circle cx="40" cy="40" r="3" fill="#00e5ff"/>
+          <line x1="40" y1="40" x2="40" y2="75" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="40" y1="14" x2="40" y2="20" stroke="#ff6b35" stroke-width="2"/>
+        </svg>
+      </div>
+      <p class="card-tag">Loop</p>
+      <h3>Magnetic Loop — 20m / 40m</h3>
+      <p>Compact tunable magnetic loop for indoor and stealth operation. Covers 20m and 40m with a high-Q capacitor for sharp tuning.</p>
+      <div class="card-specs">
+        <span class="spec-badge">7–14 MHz</span>
+        <span class="spec-badge">1m diameter</span>
+        <span class="spec-badge">High-Q</span>
+        <span class="spec-badge">Stealth</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="75" x2="40" y2="10" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="10" y1="75" x2="70" y2="75" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="10" y1="72" x2="10" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="22" y1="72" x2="22" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="34" y1="72" x2="34" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="46" y1="72" x2="46" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="58" y1="72" x2="58" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <line x1="70" y1="72" x2="70" y2="78" stroke="#00e5ff" stroke-width="1.5"/>
+          <path d="M 25 50 Q 40 20 55 50" stroke="#ff6b35" stroke-width="1.5" fill="none"/>
+          <path d="M 18 62 Q 40 15 62 62" stroke="#ff6b35" stroke-width="1" fill="none" opacity="0.5"/>
+        </svg>
+      </div>
+      <p class="card-tag">Vertical</p>
+      <h3>Quarter-Wave Vertical — 10m</h3>
+      <p>Simple 10m ground-plane vertical with four radials. Great DX performance at low angles. Built from copper pipe and a SO-239 connector.</p>
+      <div class="card-specs">
+        <span class="spec-badge">28.5 MHz</span>
+        <span class="spec-badge">~2.5m tall</span>
+        <span class="spec-badge">4 radials</span>
+        <span class="spec-badge">SO-239</span>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="20" width="50" height="32" rx="1" stroke="#00e5ff" stroke-width="2" fill="none"/>
+          <line x1="15" y1="36" x2="65" y2="36" stroke="#00e5ff" stroke-width="0.8" opacity="0.4"/>
+          <line x1="40" y1="20" x2="40" y2="52" stroke="#00e5ff" stroke-width="0.8" opacity="0.4"/>
+          <line x1="40" y1="52" x2="40" y2="65" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="30" y1="65" x2="50" y2="65" stroke="#00e5ff" stroke-width="2"/>
+          <line x1="8" y1="28" x2="15" y2="28" stroke="#ff6b35" stroke-width="2"/>
+          <line x1="65" y1="28" x2="72" y2="28" stroke="#ff6b35" stroke-width="2"/>
+          <line x1="8" y1="44" x2="15" y2="44" stroke="#ff6b35" stroke-width="2"/>
+          <line x1="65" y1="44" x2="72" y2="44" stroke="#ff6b35" stroke-width="2"/>
+        </svg>
+      </div>
+      <p class="card-tag">Patch / Planar</p>
+      <h3>2.4 GHz Patch Antenna</h3>
+      <p>PCB patch antenna for 2.4 GHz WiFi / ISM band experimentation. Designed in KiCad and etched at home. Measured 6 dBi gain.</p>
+      <div class="card-specs">
+        <span class="spec-badge">2.4 GHz</span>
+        <span class="spec-badge">~6 dBi</span>
+        <span class="spec-badge">PCB etched</span>
+        <span class="spec-badge">KiCad</span>
+      </div>
+    </div>
+
+    <!-- Card 6 — placeholder -->
+    <div class="card" style="border-style: dashed; opacity: 0.45; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:280px; text-align:center;">
+      <p style="font-family:var(--mono); color:var(--muted); font-size:0.8rem; letter-spacing:0.1em;">+ MORE DESIGNS<br>COMING SOON</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">▸ 02 / About</p>
+  <h2 class="section-title">The Builder</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Radio hobbyist with a passion for RF experimentation. I build antennas mostly from scratch — scavenged parts, copper pipe, aluminum tubing, and whatever else I can repurpose.</p>
+      <p>This site is a living notebook of designs I've built and tested. Every entry includes construction notes, measured performance, and lessons learned.</p>
+      <p>Licensed amateur radio operator. Interested in HF propagation, portable operation, and microwave experiments.</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">12+</span>
+        <span class="stat-label">Designs Built</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Bands Covered</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Years Experimenting</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">More to Build</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">▸ 03 / Contact</p>
+  <h2 class="section-title">Get in Touch</h2>
+  <div class="contact-box">
+    <p>Questions about a design, want to collaborate, or just want to talk radio? Feel free to reach out.</p>
+    <a class="contact-link" href="mailto:your@email.com">your@email.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>// ANTENNA LAB &mdash; Personal RF Portfolio</span>
+  <span>Built with HTML &amp; curiosity</span>
+</footer>
+
+</body>
+</html>
