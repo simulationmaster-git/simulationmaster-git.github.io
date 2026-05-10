@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Half-Wave Dipole — 40m Band | Antenna Lab</title>
-  <meta name="description" content="Construction notes, measurements, and performance data for a homemade half-wave dipole antenna for the 40m amateur radio band." />
+  <title>Standard Gain Horn Design</title>
+  <meta name="description" content="Design files, application notes and other information related to the Standard Gain Horn Antennas." />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -342,143 +342,16 @@
 
 <main>
 
-  <p class="breadcrumb"><a href="index.html">Designs</a> &nbsp;/&nbsp; Half-Wave Dipole — 40m</p>
+  <p class="breadcrumb"><a href="index.html">Designs</a> &nbsp;/&nbsp; Standard Gain Horn</p>
 
-  <p class="design-tag">▸ Dipole / HF</p>
-  <h1>Half-Wave Dipole<br>40m Band</h1>
-  <p class="design-summary">A classic HF dipole for the 40m amateur band. Simple to build, easy to tune, and a reliable performer for both local and DX contacts.</p>
+  <p class="design-tag">▸ SGH </p>
+  <h1>Standard Gain Horn<br>Various Frequencies</h1>
+  <p class="design-summary">In this page you can find all the information how to design a SGH antenna from scratch and links to the predesigned antennas.</p>
 
-  <!-- SPECS -->
-  <table class="spec-table">
+  <!-- SPECS -- to be updated with list of antennas>
+  <table class="contents">
     <tr><td>Frequency</td><td>7.100 – 7.200 MHz</td></tr>
-    <tr><td>Design frequency</td><td>7.150 MHz</td></tr>
-    <tr><td>Total length</td><td>~20.1 m (2 × 10.05 m)</td></tr>
-    <tr><td>Feed impedance</td><td>~72 Ω</td></tr>
-    <tr><td>Feedline</td><td>RG-58 coaxial cable</td></tr>
-    <tr><td>Balun</td><td>1:1 current balun (homebrew)</td></tr>
-    <tr><td>Best SWR</td><td>1.3:1 @ 7.150 MHz</td></tr>
-    <tr><td>Polarisation</td><td>Horizontal</td></tr>
-    <tr><td>Height</td><td>~8m above ground</td></tr>
-    <tr><td>Build date</td><td>Add your date here</td></tr>
-  </table>
-
-  <!-- DIAGRAM -->
-  <div class="diagram-box">
-    <p class="diagram-label">Construction Diagram</p>
-    <svg viewBox="0 0 700 200" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Left element -->
-      <line x1="30" y1="100" x2="330" y2="100" stroke="#00e5ff" stroke-width="3"/>
-      <!-- Right element -->
-      <line x1="370" y1="100" x2="670" y2="100" stroke="#00e5ff" stroke-width="3"/>
-      <!-- Feed point -->
-      <rect x="325" y="88" width="50" height="24" fill="#111720" stroke="#ff6b35" stroke-width="2"/>
-      <text x="350" y="104" font-family="Share Tech Mono" font-size="9" fill="#ff6b35" text-anchor="middle">BALUN</text>
-      <!-- Feedline down -->
-      <line x1="350" y1="112" x2="350" y2="180" stroke="#ff6b35" stroke-width="2" stroke-dasharray="5,4"/>
-      <text x="365" y="175" font-family="Share Tech Mono" font-size="9" fill="#526070">RG-58</text>
-      <!-- Left insulator -->
-      <circle cx="30" cy="100" r="7" fill="#111720" stroke="#526070" stroke-width="1.5"/>
-      <!-- Right insulator -->
-      <circle cx="670" cy="100" r="7" fill="#111720" stroke="#526070" stroke-width="1.5"/>
-      <!-- Dimension line -->
-      <line x1="30" y1="145" x2="670" y2="145" stroke="#1e2d3d" stroke-width="1"/>
-      <line x1="30" y1="138" x2="30" y2="152" stroke="#1e2d3d" stroke-width="1"/>
-      <line x1="670" y1="138" x2="670" y2="152" stroke="#1e2d3d" stroke-width="1"/>
-      <text x="350" y="160" font-family="Share Tech Mono" font-size="9" fill="#526070" text-anchor="middle">~20.1 m total</text>
-      <!-- Half labels -->
-      <text x="175" y="85" font-family="Share Tech Mono" font-size="9" fill="#526070" text-anchor="middle">10.05 m</text>
-      <text x="525" y="85" font-family="Share Tech Mono" font-size="9" fill="#526070" text-anchor="middle">10.05 m</text>
-      <!-- End labels -->
-      <text x="30" y="75" font-family="Share Tech Mono" font-size="8" fill="#526070" text-anchor="middle">INS</text>
-      <text x="670" y="75" font-family="Share Tech Mono" font-size="8" fill="#526070" text-anchor="middle">INS</text>
-    </svg>
-  </div>
-
-  <!-- SWR -->
-  <div class="section">
-    <h2>SWR Measurements</h2>
-    <div class="swr-chart">
-      <div class="swr-bar-label"><span>Frequency</span><span>SWR (1:1 is perfect, &lt;2:1 is usable)</span></div>
-      <div class="swr-row">
-        <span class="swr-freq">7.000 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill warn" style="width:70%"></div></div>
-        <span class="swr-val">2.1:1</span>
-      </div>
-      <div class="swr-row">
-        <span class="swr-freq">7.050 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill" style="width:45%"></div></div>
-        <span class="swr-val">1.6:1</span>
-      </div>
-      <div class="swr-row">
-        <span class="swr-freq">7.100 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill" style="width:30%"></div></div>
-        <span class="swr-val">1.4:1</span>
-      </div>
-      <div class="swr-row">
-        <span class="swr-freq">7.150 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill" style="width:20%"></div></div>
-        <span class="swr-val">1.3:1</span>
-      </div>
-      <div class="swr-row">
-        <span class="swr-freq">7.200 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill" style="width:35%"></div></div>
-        <span class="swr-val">1.5:1</span>
-      </div>
-      <div class="swr-row">
-        <span class="swr-freq">7.300 MHz</span>
-        <div class="swr-bar-track"><div class="swr-bar-fill warn" style="width:65%"></div></div>
-        <span class="swr-val">2.0:1</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- MATERIALS -->
-  <div class="section">
-    <h2>Materials Used</h2>
-    <ul>
-      <li>~21m of 1.5mm² stranded copper wire (cut to length after tuning)</li>
-      <li>2× end insulators (repurposed from old antenna)</li>
-      <li>1× centre insulator with SO-239 socket</li>
-      <li>Homebrew 1:1 current balun — 12 turns RG-58 on FT-240-43 toroid</li>
-      <li>15m RG-58 feedline with PL-259 connectors</li>
-      <li>UV-resistant cable ties and weatherproofing tape</li>
-    </ul>
-  </div>
-
-  <!-- BUILD NOTES -->
-  <div class="section">
-    <h2>Build Notes</h2>
-    <p>The formula for a half-wave dipole is simple: total length (metres) = 143 / frequency (MHz). For 7.150 MHz that gives 20.0m, so I cut each leg to 10.1m and trimmed down from there.</p>
-    <p>I started slightly long and used an antenna analyser to find the resonant frequency, then trimmed a few centimetres at a time from each end symmetrically until the SWR dipped at 7.150 MHz.</p>
-    <p>The balun is important — without it, the coax braid radiates and upsets the pattern. A simple choke balun wound on a toroid does the job well.</p>
-  </div>
-
-  <!-- LESSONS LEARNED -->
-  <div class="section">
-    <h2>Lessons Learned</h2>
-    <ul>
-      <li>Cut long and trim — you can't add wire back once it's gone</li>
-      <li>Height matters more than perfection — even 5m up works well</li>
-      <li>An inverted-V configuration (centre high, ends lower) is easier to support and performs nearly as well</li>
-      <li>Always weatherproof the feedpoint connector — moisture causes SWR to drift</li>
-    </ul>
-  </div>
-
-  <!-- PHOTOS -->
-  <div class="section">
-    <h2>Photos</h2>
-    <p>Replace these placeholders by uploading your own photos to GitHub and updating the image tags below.</p>
-    <div class="photo-grid">
-      <div class="photo-slot">
-        <!-- Replace with: <img src="dipole-feedpoint.jpg" alt="Feedpoint" style="width:100%;height:100%;object-fit:cover;"> -->
-        + Add photo<br>feedpoint
-      </div>
-      <div class="photo-slot">
-        <!-- Replace with: <img src="dipole-full.jpg" alt="Full antenna" style="width:100%;height:100%;object-fit:cover;"> -->
-        + Add photo<br>full view
-      </div>
-    </div>
-  </div>
+  </table> -->
 
   <a class="back-btn" href="index.html">◂ Back to all designs</a>
 
