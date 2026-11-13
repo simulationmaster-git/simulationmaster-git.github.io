@@ -85,12 +85,22 @@
     ol.steps li { color: var(--muted); padding: 0.25rem 0 0.25rem 0.4rem; }
     ol.steps strong { font-weight: 600; color: #e8f0f8; }
 
-    /* Antenna table */
-    .table-scroll { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    th, td { text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
-    th { font-family: var(--mono); font-weight: 400; color: var(--muted); font-size: 0.85rem; }
-    td { color: #e8f0f8; }
+    /* File list */
+    #files h3 { font-family: var(--mono); font-weight: 400; font-size: 1.1rem; color: #e8f0f8; margin: 1.5rem 0 0.5rem; }
+    #files h3:first-child { margin-top: 0; }
+    ul.files { list-style: none; }
+    ul.files li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    ul.files a { overflow-wrap: anywhere; }
+    ul.files small { display: block; color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+    ul.files span { color: var(--muted); font-family: var(--mono); font-size: 0.85rem; white-space: nowrap; }
 
     /* Footer */
     footer { border-top: 1px solid var(--border); padding: 2rem 0; font-size: 0.9rem; color: var(--muted); }
@@ -121,29 +131,14 @@
       <p class="crumb"><a href="index.html#designs">Designs</a> / Standard gain horn</p>
       <h1>Standard gain horn antennas</h1>
       <p>How to design a standard gain horn from scratch, plus ready-made designs for different frequency bands.</p>
-      <a class="button" href="https://drive.google.com/drive/folders/1xcAmgG5_2hgKNECkZ3RHF9xOEBwHmScv?usp=drive_link" target="_blank" rel="noopener noreferrer">Download files (Google Drive)</a>
+      <a class="button" href="#files-section">Download files</a>
     </div>
 
-    <section id="ready-made">
-      <h2>Ready-made designs</h2>
-      <p>The full list is being added. Until then, every design is in the Drive folder above.</p>
-
-      <!-- When you have designs to list, delete the paragraph above and uncomment this table.
-           Add one <tr> per antenna.
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr><th>Band</th><th>Frequency</th><th>Gain</th><th>Waveguide</th><th>Files</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>X-band</td><td>8.2–12.4 GHz</td><td>__ dBi</td><td>WR-90</td>
-              <td><a href="LINK-TO-FILES">STEP, S-parameters, patterns</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      -->
+    <section id="files-section">
+      <h2>Files</h2>
+      <p>Click a file to download it. The list updates when new files are added to the repository.</p>
+      <div id="files" data-root="designs/sgh/">Loading files…</div>
+      <noscript><p>Turn on JavaScript to see the file list, or <a href="https://github.com/simulationmaster-git/simulationmaster-git.github.io/tree/main/designs/sgh">browse the files on GitHub</a>.</p></noscript>
     </section>
 
     <section id="design">
@@ -166,5 +161,6 @@
   </div>
 </footer>
 
+<script src="files.js"></script>
 </body>
 </html>
