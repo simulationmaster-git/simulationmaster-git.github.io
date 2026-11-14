@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.4 GHz patch antenna – Antenna Lab</title>
+  <meta name="description" content="Design files for a 2.4 GHz patch antenna." />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e12;
+      --surface: #111720;
+      --border: #1e2d3d;
+      --accent: #00e5ff;
+      --text: #c9d6e3;
+      --muted: #7a8b9c;
+      --mono: 'Share Tech Mono', monospace;
+      --body: 'Barlow', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Header */
+    header { border-bottom: 1px solid var(--border); }
+    header .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .logo { font-family: var(--mono); color: #e8f0f8; text-decoration: none; font-size: 1.1rem; }
+    nav { display: flex; gap: 1.5rem; }
+    nav a { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--accent); }
+
+    /* Page intro */
+    .intro { padding: 3rem 0 2.5rem; }
+    .crumb { font-family: var(--mono); font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .crumb a { text-decoration: none; }
+    .crumb a:hover { text-decoration: underline; }
+    h1 {
+      font-family: var(--mono);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      line-height: 1.15;
+      color: #e8f0f8;
+      margin-bottom: 1rem;
+    }
+    .intro p { color: var(--muted); max-width: 36em; margin-bottom: 1.75rem; }
+    .button {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.7rem 1.5rem;
+      text-decoration: none;
+    }
+    .button:hover { background: #4df0ff; }
+
+    /* Sections */
+    section { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    h2 { font-family: var(--mono); font-weight: 400; font-size: 1.4rem; color: #e8f0f8; margin-bottom: 1.25rem; }
+    section p { color: var(--muted); max-width: 40em; margin-bottom: 0.75rem; }
+
+    /* File list */
+    #files h3 { font-family: var(--mono); font-weight: 400; font-size: 1.1rem; color: #e8f0f8; margin: 1.5rem 0 0.5rem; }
+    #files h3:first-child { margin-top: 0; }
+    ul.files { list-style: none; }
+    ul.files li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    ul.files a { overflow-wrap: anywhere; }
+    ul.files small { display: block; color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+    ul.files span { color: var(--muted); font-family: var(--mono); font-size: 0.85rem; white-space: nowrap; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; font-size: 0.9rem; color: var(--muted); }
+
+    @media (max-width: 600px) {
+      .intro { padding: 2rem 0 2rem; }
+      nav { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="index.html">Antenna Lab</a>
+    <nav>
+      <a href="index.html#designs">Designs</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/simulationmaster-git/simulationmaster-git.github.io">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="intro">
+      <p class="crumb"><a href="index.html#designs">Designs</a> / Patch antenna</p>
+      <h1>2.4 GHz patch antenna</h1>
+      <p>Design files for a planar patch antenna for the 2.4 GHz band.</p>
+      <a class="button" href="#files-section">Download files</a>
+    </div>
+
+    <section id="files-section">
+      <h2>Files</h2>
+      <p>Click a file to download it. The list updates when new files are added to the repository.</p>
+      <div id="files" data-root="designs/patch-antennas/">Loading files…</div>
+      <noscript><p>Turn on JavaScript to see the file list, or <a href="https://github.com/simulationmaster-git/simulationmaster-git.github.io/tree/main/designs/patch-antennas">browse the files on GitHub</a>.</p></noscript>
+    </section>
+
+    <!-- When you have results, add a section here, for example:
+    <section id="results">
+      <h2>Results</h2>
+      <p>Resonant frequency, bandwidth, gain and S11 plot.</p>
+    </section>
+    -->
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Designs are shared as-is, with no warranty. Check your local RF regulations and safety rules before you build or transmit.</p>
+  </div>
+</footer>
+
+<script src="files.js"></script>
+</body>
+</html>
