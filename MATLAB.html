@@ -79,18 +79,15 @@
     /* Sections */
     section { padding: 2.5rem 0; border-top: 1px solid var(--border); }
     h2 { font-family: var(--mono); font-weight: 400; font-size: 1.4rem; color: #e8f0f8; margin-bottom: 1.25rem; }
-    section p { color: var(--muted); max-width: 40em; margin-bottom: 0.75rem; }
+    section > p { color: var(--muted); max-width: 40em; margin-bottom: 1.5rem; }
 
     /* Tools */
-    .tool { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
-    .tool:first-of-type { padding-top: 0; }
-    .tool:last-of-type { border-bottom: 0; }
+    .tool { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+    .tool:first-of-type { border-top: 0; padding-top: 0; }
     .tool h3 { font-family: var(--mono); font-weight: 400; font-size: 1.15rem; color: #e8f0f8; margin-bottom: 0.25rem; }
-    .tool p { margin-bottom: 0; }
+    .tool > p { color: var(--muted); max-width: 40em; margin-bottom: 0.75rem; }
 
     /* File list */
-    #files h3 { font-family: var(--mono); font-weight: 400; font-size: 1.1rem; color: #e8f0f8; margin: 1.5rem 0 0.5rem; }
-    #files h3:first-child { margin-top: 0; }
     ul.files { list-style: none; }
     ul.files li {
       display: flex;
@@ -135,33 +132,32 @@
       <p class="crumb"><a href="index.html#matlab">MATLAB tools</a></p>
       <h1>MATLAB tools</h1>
       <p>MATLAB codes for antenna design. Download a tool, open it in MATLAB and adapt it to your own design.</p>
-      <a class="button" href="#files-section">Download files</a>
+      <a class="button" href="#tools">Browse tools</a>
     </div>
 
     <section id="tools">
       <h2>Tools</h2>
+      <p>Download all the files of a tool and keep them together in one folder before you run the .m file.</p>
 
       <div class="tool" id="ultimate">
         <h3>Ultimate antenna design tool</h3>
         <p>A MATLAB tool for designing antennas.</p>
+        <div data-root="Matlab Codes/Ultimate Antenna Design Tool/">Loading files…</div>
       </div>
 
       <div class="tool" id="reflectarray">
         <h3>Reflectarray tool</h3>
         <p>A MATLAB tool for designing reflectarray antennas.</p>
+        <div data-root="Matlab Codes/Reflectarray Design Tool/">Loading files…</div>
       </div>
 
       <div class="tool" id="corrugated">
         <h3>Corrugated antenna design tool</h3>
         <p>A MATLAB tool for designing corrugated antennas.</p>
+        <div data-root="Matlab Codes/Corrugated Antenna Design Tool/">Loading files…</div>
       </div>
-    </section>
 
-    <section id="files-section">
-      <h2>Files</h2>
-      <p>Click a file to download it. The list updates when new files are added to the repository.</p>
-      <div id="files" data-root="matlab/">Loading files…</div>
-      <noscript><p>Turn on JavaScript to see the file list, or <a href="https://github.com/simulationmaster-git/simulationmaster-git.github.io/tree/main/matlab">browse the files on GitHub</a>.</p></noscript>
+      <noscript><p>Turn on JavaScript to see the file lists, or <a href="https://github.com/simulationmaster-git/simulationmaster-git.github.io/tree/main/Matlab%20Codes">browse the files on GitHub</a>.</p></noscript>
     </section>
 
   </div>
