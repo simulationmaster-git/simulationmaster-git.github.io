@@ -50,6 +50,27 @@
     return /\/$/.test(r) ? r : r + '/';
   }
 
+  // Folder names are compared ignoring capitals, spaces, hyphens and underscores,
+  // so "Slotted Waveguide Antenna" and "slotted-waveguide-antenna" both match.
+  function norm(s) {
+    return s.toLowerCase().replace(/[\s_-]+/g, '');
+  }
+
+  function findFiles(box, tree) {
+    var rootSegs = rootOf(box).split('/').filter(Boolean).map(norm);
+    var out = [];
+    tree.forEach(function (t) {
+      if (t.type !== 'blob' || /\.gitkeep$/.test(t.path)) return;
+      var segs = t.path.split('/');
+      if (segs.length <= rootSegs.length) return;
+      for (var i = 0; i < rootSegs.length; i++) {
+        if (norm(segs[i]) !== rootSegs[i]) return;
+      }
+      out.push({ rel: segs.slice(rootSegs.length), path: t.path, size: t.size });
+    });
+    return out;
+  }
+
   function showError(box) {
     box.textContent = '';
     var p = document.createElement('p');
@@ -63,19 +84,17 @@
   }
 
   function render(box, tree) {
-    var ROOT = rootOf(box);
-    var files = tree.filter(function (t) {
-      return t.type === 'blob' && t.path.indexOf(ROOT) === 0 && !/\.gitkeep$/.test(t.path);
-    });
-    if (!files.length) { box.textContent = 'No files have been added yet.'; return; }
+    var files = findFiles(box, tree);
+    if (!files.length) {
+      box.textContent = 'No files found in "' + rootOf(box) + '". Check that this folder exists in the repository.';
+      return;
+    }
 
     // Files directly in the folder have no heading. Files in subfolders are grouped by subfolder.
     var groups = {};
     files.forEach(function (f) {
-      var rel = f.path.slice(ROOT.length);
-      var i = rel.indexOf('/');
-      var group = i < 0 ? '' : rel.slice(0, i);
-      var name = i < 0 ? rel : rel.slice(i + 1);
+      var group = f.rel.length > 1 ? f.rel[0] : '';
+      var name = f.rel.length > 1 ? f.rel.slice(1).join('/') : f.rel[0];
       (groups[group] = groups[group] || []).push({ name: name, path: f.path, size: f.size });
     });
 
