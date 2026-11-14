@@ -23,7 +23,13 @@
     s2p: 'Touchstone S-parameters',
     csv: 'Data (CSV)',
     md: 'Notes',
-    txt: 'Notes'
+    txt: 'Notes',
+    m: 'MATLAB code',
+    mlx: 'MATLAB live script',
+    mlapp: 'MATLAB app',
+    mat: 'MATLAB data',
+    fig: 'MATLAB figure',
+    zip: 'ZIP archive'
   };
 
   function describe(name) {
